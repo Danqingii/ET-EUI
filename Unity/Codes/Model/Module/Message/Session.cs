@@ -142,7 +142,8 @@ namespace ET
             self.AService.SendStream(self.Id, actorId, memoryStream);
         }
     }
-
+    
+    [ChildType()]
     public sealed class Session: Entity, IAwake<AService>, IDestroy
     {
         public AService AService;

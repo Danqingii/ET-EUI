@@ -238,4 +238,31 @@ message M2C_TransferMap // IActorLocationResponse
 	int32 Error = 91;
 	string Message = 92;
 }
+
+
+//登陆账号
+//ResponseType A2C_LoginAccount
+message C2A_LoginAccount // IRequest
+{
+    int32 RpcId = 90;
+	string AccountName = 1;
+    string Password = 2;
+}
+
+message A2C_LoginAccount  // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64 AccountId = 1;
+	string Token = 2;
+}
+
+
+
+message A2C_AccountDisconnect // IMessage
+{
+	int32 Error = 1;
+}
+
  

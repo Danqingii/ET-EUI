@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 namespace ET
 {
+    [FriendClass(typeof(UIEventComponent))]
     public static class EUIHelper
     {
         
@@ -151,7 +152,28 @@ namespace ET
 
         #endregion
         
-  #region UI按钮事件
+        #region UI按钮事件
+
+        public static void AddListenerAsync(this Button button, Func<ETTask> action)
+        {
+            button.onClick.RemoveAllListeners();
+
+            async ETTask clickActionAsync()
+            {
+                UIEventComponent.Instance?.SetUIClicked(true);
+                await action();
+                UIEventComponent.Instance?.SetUIClicked(false);
+            }
+            
+            button.onClick.AddListener(() =>
+            {
+                if (UIEventComponent.Instance == null || UIEventComponent.Instance.IsClicked)
+                {
+                    return;
+                }
+                clickActionAsync().Coroutine();
+            });
+        }
 
         public static void AddListener(this Toggle toggle, UnityAction<bool> selectEventHandler)
         {
@@ -190,21 +212,21 @@ namespace ET
         }
 
 
-       public static void AddListener(this ToggleGroup toggleGroup, UnityAction<int> selectEventHandler)
-       {
-           var togglesList = toggleGroup.GetComponentsInChildren<Toggle>();
-           for (int i = 0; i < togglesList.Length; i++)
-           {
-               int index = i;
-               togglesList[i].AddListener((isOn) => 
-               {
-                   if (isOn)
-                   {
-                       selectEventHandler(index);
-                   }
-               });
-           }
-       }
+        public static void AddListener(this ToggleGroup toggleGroup, UnityAction<int> selectEventHandler)
+        {
+            var togglesList = toggleGroup.GetComponentsInChildren<Toggle>();
+            for (int i = 0; i < togglesList.Length; i++)
+            {
+                int index = i;
+                togglesList[i].AddListener((isOn) => 
+                {
+                    if (isOn)
+                    {
+                        selectEventHandler(index);
+                    }
+                });
+            }
+        }
 
         
         /// <summary>
