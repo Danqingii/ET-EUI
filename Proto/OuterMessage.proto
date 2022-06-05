@@ -240,7 +240,10 @@ message M2C_TransferMap // IActorLocationResponse
 }
 
 
-//登陆账号
+
+
+
+//玩家登陆账号到账号服
 //ResponseType A2C_LoginAccount
 message C2A_LoginAccount // IRequest
 {

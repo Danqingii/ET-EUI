@@ -2,7 +2,9 @@
 
 namespace ET
 {
-    //
+    /// <summary>
+    /// 断开跟玩家通讯的Gate网关服
+    /// </summary>
     [ActorMessageHandler]
     public class L2G_DisconnectGateUnitHandler : AMActorRpcHandler<Scene,L2G_DisconnectGateUnit,G2L_DisconnectGateUnit>
     {

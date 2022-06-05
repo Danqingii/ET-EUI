@@ -27,7 +27,7 @@ namespace ET
             session.RemoveComponent<SessionAcceptTimeoutComponent>();
             
             //防止玩家一直按请求按钮
-            if (session.GetComponent<SessionLockComponent>() != null)
+            if (session.GetComponent<SessionLockingComponent>() != null)
             {
                 response.Error = ErrorCode.ERR_RequestLoginRepeat;
                 reply();
@@ -59,7 +59,7 @@ namespace ET
                 return;
             }
 
-            using (session.AddComponent<SessionLockComponent>())
+            using (session.AddComponent<SessionLockingComponent>())
             {
                 //账号登陆携程锁,防止玩家不同地同时登陆,造成2个Account信息
                 using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.LoginAccount, request.AccountName.Trim().GetHashCode()))
@@ -100,7 +100,6 @@ namespace ET
                         await DBManagerComponent.Instance.GetZoneDB(session.DomainZone()).Save<Account>(account);
                     }
 
-                    
                     //保存当前玩家的账号在登陆中心服
                     StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "LoginCentre");
                     long loginCentreInstacneId = startSceneConfig.InstanceId;
@@ -114,20 +113,25 @@ namespace ET
                         return;
                     }
                     
-                    //尝试得到上一次的账号连接的session  通知该账号下线
+                    //尝试得到上一次的账号连接的session  如果该账号存在于账号通讯管理中 代表该玩家被顶号了,通知当前玩家下线
                     long accountSessionInstanceId = session.DomainScene().GetComponent<AccountSessionsComponent>().GetSessionInstanceId(account.Id);
                     Session otherSession = Game.EventSystem.Get(accountSessionInstanceId) as Session;
                     if (otherSession != null)
                     {
+                        //通知当前在线的玩家 下线
                         otherSession.Send(new A2C_AccountDisconnect(){Error = 0});
+                        otherSession.Disconnect().Coroutine();
+                        
+                        Log.Debug($"{account.Id}T玩家下线了");
+                        //把该玩家从账号通讯管理中移除
                         session.DomainScene().GetComponent<AccountSessionsComponent>().RemoveSessionInstanceId(accountSessionInstanceId);
-                        session.Disconnect().Coroutine();
                     }
                     
+                    Log.Debug($"{account.Id}保存玩家账号");
                     //保存后续玩家的session连接
                     session.DomainScene().GetComponent<AccountSessionsComponent>().AddSessionInstanceId(account.Id,session.InstanceId);
                    
-                    //账号检测闲置时间组件
+                    //账号检测闲置时间组件 10分钟后会激活
                     session.AddComponent<AccountCheckOutTimeComponent, long>(account.Id);
                     
                     //把令牌保存到账号服务器的令牌组件上

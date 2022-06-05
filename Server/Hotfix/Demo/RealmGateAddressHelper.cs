@@ -9,7 +9,7 @@ namespace ET
 		{
 			List<StartSceneConfig> zoneGates = StartSceneConfigCategory.Instance.Gates[zone];
 			
-			//通过固定的算法 得到一个gate网关服务器配置
+			//通过固定的算法 得到一个固定的gate网关服务器配置
 			int n = accountId.GetHashCode() % zone;
 
 			return zoneGates[n];

@@ -1,6 +1,6 @@
 namespace ET
 {
-    [ComponentOf(typeof(Scene))]
+    [ComponentOf(typeof(Session))]
     public class PingComponent: Entity, IAwake, IDestroy
     {
         [NoMemoryCheck]

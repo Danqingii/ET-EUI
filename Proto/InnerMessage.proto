@@ -157,7 +157,9 @@ message G2M_SessionDisconnect // IActorLocationMessage
 
 
 
-//登陆账号记录
+
+
+//账号服玩家登陆账号信息保存到登陆中心服
 //ResponseType L2A_LoginAccountRecord
 message A2L_LoginAccountRecord // IActorRequest
 {
@@ -173,7 +175,7 @@ message L2A_LoginAccountRecord // IActorResponse
 }
 
 
-
+//登录中心服通知Gate网关断开玩家连接
 //ResponseType G2L_DisconnectGateUnit
 message L2G_DisconnectGateUnit // IActorRequest
 {

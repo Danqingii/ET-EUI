@@ -45,15 +45,16 @@ namespace ET
         {
             Session session = self.GetParent<Session>();
 
-            //删除掉在账号服务器中跟玩家通讯的session缓存
+            //删除在账号通讯管理跟该玩家保持通讯的session
             long accountSessionInstaceId = session.DomainScene().GetComponent<AccountSessionsComponent>().GetSessionInstanceId(self.AccountId);
             if (session.InstanceId == accountSessionInstaceId)
             {
                 session.DomainScene().GetComponent<AccountSessionsComponent>().RemoveSessionInstanceId(self.AccountId);
             }
             
-            session.Send(new A2C_AccountDisconnect(){Error = 1});
-            session.Disconnect().Coroutine();
+            //如果该通讯不为空  通知该玩家下线
+            session?.Send(new A2C_AccountDisconnect(){Error = 1});
+            session?.Disconnect().Coroutine();
         }
     }
 }

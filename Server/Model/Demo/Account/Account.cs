@@ -2,8 +2,8 @@
 {
     public enum AccountType
     {
-        General,
-        Blocked,
+        General,   //一般玩家
+        Blocked,   //账号封禁
     }
     
     //账号实体

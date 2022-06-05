@@ -14,7 +14,10 @@
     {
         public static void AddSessionInstanceId(this AccountSessionsComponent self,long accountId,long sessionInstanceId)
         {
-            self.AccountSessionDictionary.Add(accountId,sessionInstanceId);
+            if (!self.AccountSessionDictionary.ContainsKey(accountId))
+            {
+                self.AccountSessionDictionary.Add(accountId,sessionInstanceId);
+            }
         }
         
         public static void RemoveSessionInstanceId(this AccountSessionsComponent self,long accountId)

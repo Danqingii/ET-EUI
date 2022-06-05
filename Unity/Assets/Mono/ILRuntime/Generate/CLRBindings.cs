@@ -39,8 +39,10 @@ namespace ILRuntime.Runtime.Generated
             ET_ETTask_1_Boolean_Binding.Register(app);
             ET_ETTask_1_Int32_Binding.Register(app);
             ET_ETTask_1_ILTypeInstance_Binding.Register(app);
+            ET_ETAsyncTaskMethodBuilder_1_Int32_Binding.Register(app);
             ET_NetworkHelper_Binding.Register(app);
-            ET_ETTask_Binding.Register(app);
+            ET_MD5Helper_Binding.Register(app);
+            System_Object_Binding.Register(app);
             ET_ListComponent_1_Vector3_Binding.Register(app);
             System_Collections_Generic_List_1_Single_Binding.Register(app);
             UnityEngine_Vector3_Binding.Register(app);
@@ -51,7 +53,7 @@ namespace ILRuntime.Runtime.Generated
             System_Math_Binding.Register(app);
             System_Collections_Generic_List_1_Vector3_Binding_Enumerator_Binding.Register(app);
             ET_ETCancellationToken_Binding.Register(app);
-            ET_ETAsyncTaskMethodBuilder_1_Int32_Binding.Register(app);
+            ET_ETTask_Binding.Register(app);
             System_IO_MemoryStream_Binding.Register(app);
             System_BitConverter_Binding.Register(app);
             System_Collections_Generic_List_1_ILTypeInstance_Binding.Register(app);
@@ -83,7 +85,6 @@ namespace ILRuntime.Runtime.Generated
             ET_ThreadSynchronizationContext_Binding.Register(app);
             ET_ForeachHelper_Binding.Register(app);
             System_Collections_Generic_HashSet_1_AService_Binding.Register(app);
-            System_Object_Binding.Register(app);
             System_Exception_Binding.Register(app);
             System_Collections_Generic_Dictionary_2_Int32_List_1_ILTypeInstance_Binding.Register(app);
             ET_TimeInfo_Binding.Register(app);
@@ -117,9 +118,10 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine_UI_Toggle_Binding.Register(app);
             System_ValueTuple_2_Int32_Toggle_Binding.Register(app);
             UnityEngine_Events_UnityEvent_1_Boolean_Binding.Register(app);
-            UnityEngine_Events_UnityEventBase_Binding.Register(app);
             UnityEngine_UI_Button_Binding.Register(app);
+            UnityEngine_Events_UnityEventBase_Binding.Register(app);
             UnityEngine_Events_UnityEvent_Binding.Register(app);
+            System_Func_1_ETTask_Binding.Register(app);
             System_Action_1_Int32_Binding.Register(app);
             System_Action_1_Int64_Binding.Register(app);
             UnityEngine_Events_UnityAction_1_Int32_Binding.Register(app);

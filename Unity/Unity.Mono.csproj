@@ -345,6 +345,8 @@
      <Compile Include="Assets\Mono\ILRuntime\Generate\System_IO_MemoryStream_Binding.cs" />
      <Compile Include="Assets\Mono\ILRuntime\Generate\UnityEngine_Animator_Binding.cs" />
      <Compile Include="Assets\Mono\Define.cs" />
+     <Compile Include="Assets\Mono\ILRuntime\Generate\ET_MD5Helper_Binding.cs" />
+     <Compile Include="Assets\Mono\ILRuntime\Generate\System_Func_1_ETTask_Binding.cs" />
      <None Include="Assets\Mono\Unity.Mono.asmdef" />
      <Reference Include="UnityEngine">
      <HintPath>C:/Program Files/Unity Editor/2020.3.28f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

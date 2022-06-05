@@ -33,7 +33,9 @@ namespace ET
 
             //保存跟账号服务器的通讯
             zoneScene.AddComponent<SessionComponent>().Session = accountSession;
-            zoneScene.AddComponent<PingComponent>();
+            
+            //给通讯器添加心跳检测组件
+            zoneScene.GetComponent<SessionComponent>().Session.AddComponent<PingComponent>();
             
             //保存服务器返回的登陆信息
             zoneScene.GetComponent<AccountInfoComponent>().Token = a2CLoginAccount.Token;
