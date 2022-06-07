@@ -1,0 +1,6 @@
+{"list":[
+{"_t":"ServerInfoConfig","_id":1,"ServerName":"游戏一服","Status":0},
+{"_t":"ServerInfoConfig","_id":2,"ServerName":"游戏二服","Status":0},
+{"_t":"ServerInfoConfig","_id":3,"ServerName":"游戏三服","Status":0},
+{"_t":"ServerInfoConfig","_id":4,"ServerName":"游戏四服","Status":1},
+]}

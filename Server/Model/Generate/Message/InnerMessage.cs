@@ -325,7 +325,7 @@ namespace ET
 
 	}
 
-//登陆账号记录
+//账号服玩家登陆账号信息保存到登陆中心服
 	[ResponseType(nameof(L2A_LoginAccountRecord))]
 	[Message(InnerOpcode.A2L_LoginAccountRecord)]
 	[ProtoContract]
@@ -354,6 +354,7 @@ namespace ET
 
 	}
 
+//登录中心服通知Gate网关断开玩家连接
 	[ResponseType(nameof(G2L_DisconnectGateUnit))]
 	[Message(InnerOpcode.L2G_DisconnectGateUnit)]
 	[ProtoContract]

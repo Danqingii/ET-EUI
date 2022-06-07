@@ -4,7 +4,7 @@
     {
         public override void Destroy(TokenComponent self)
         {
-            self.TokenDictionary.Clear();
+            self.TokenDict.Clear();
         }
     }
 
@@ -12,24 +12,24 @@
     public static class TokenComponentSystem
     {
         //在添加令牌的时候 10分钟后会自动移除令牌
-        public static void AddToken(this TokenComponent self,long key,string token)
+        public static void AddToken(this TokenComponent self,long accountId,string token)
         {
-            self.TokenDictionary.Add(key,token);
-            self.TokenMaintainTimer(key,token).Coroutine();
+            self.TokenDict.Add(accountId,token);
+            self.TokenMaintainTimer(accountId,token).Coroutine();
         }
         
-        public static void RemoveToken(this TokenComponent self,long key)
+        public static void RemoveToken(this TokenComponent self,long accountId)
         {
-            if (self.TokenDictionary.ContainsKey(key))
+            if (self.TokenDict.ContainsKey(accountId))
             {
-                self.TokenDictionary.Remove(key);
+                self.TokenDict.Remove(accountId);
             }
         }
 
-        public static string GetToken(this TokenComponent self,long key)
+        public static string GetToken(this TokenComponent self,long accountId)
         {
             string token = string.Empty;
-            self.TokenDictionary.TryGetValue(key, out token);
+            self.TokenDict.TryGetValue(accountId, out token);
             return token;
         }
 

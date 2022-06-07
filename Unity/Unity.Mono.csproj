@@ -67,6 +67,7 @@
      <Compile Include="Assets\Mono\ILRuntime\Generate\ET_ListComponent_1_String_Binding.cs" />
      <Compile Include="Assets\Mono\ILRuntime\Generate\UnityEngine_TextAsset_Binding.cs" />
      <Compile Include="Assets\Mono\Core\Helper\EnumHelper.cs" />
+     <Compile Include="Assets\Mono\ILRuntime\Generate\ET_MD5Helper_Binding.cs" />
      <Compile Include="Assets\Mono\Core\ListComponent.cs" />
      <Compile Include="Assets\Mono\ILRuntime\Generate\System_Collections_Generic_KeyValuePair_2_String_ILTypeInstance_Bindi.cs" />
      <Compile Include="Assets\Mono\Core\TimeInfo.cs" />
@@ -221,6 +222,7 @@
      <Compile Include="Assets\Mono\Core\MonoPool.cs" />
      <Compile Include="Assets\Mono\ILRuntime\Generate\ET_Define_Binding.cs" />
      <Compile Include="Assets\Mono\ILRuntime\Generate\System_Collections_Generic_List_1_Object_Binding.cs" />
+     <Compile Include="Assets\Mono\ILRuntime\Generate\System_Func_1_ETTask_Binding.cs" />
      <Compile Include="Assets\Mono\Core\UnOrderMultiMapSet.cs" />
      <Compile Include="Assets\Mono\ILRuntime\Generate\ET_ETAsyncTaskMethodBuilder_1_Int32_Binding.cs" />
      <Compile Include="Assets\Mono\ILRuntime\Generate\System_Threading_Monitor_Binding.cs" />
@@ -345,8 +347,6 @@
      <Compile Include="Assets\Mono\ILRuntime\Generate\System_IO_MemoryStream_Binding.cs" />
      <Compile Include="Assets\Mono\ILRuntime\Generate\UnityEngine_Animator_Binding.cs" />
      <Compile Include="Assets\Mono\Define.cs" />
-     <Compile Include="Assets\Mono\ILRuntime\Generate\ET_MD5Helper_Binding.cs" />
-     <Compile Include="Assets\Mono\ILRuntime\Generate\System_Func_1_ETTask_Binding.cs" />
      <None Include="Assets\Mono\Unity.Mono.asmdef" />
      <Reference Include="UnityEngine">
      <HintPath>C:/Program Files/Unity Editor/2020.3.28f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
