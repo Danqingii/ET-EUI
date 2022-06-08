@@ -29,7 +29,7 @@ namespace ET
             //防止玩家一直按请求按钮
             if (session.GetComponent<SessionLockingComponent>() != null)
             {
-                response.Error = ErrorCode.ERR_RequestLoginRepeat;
+                response.Error = ErrorCode.ERR_RequestRepeat;
                 reply();
                 session?.Disconnect().Coroutine(); 
                 return;

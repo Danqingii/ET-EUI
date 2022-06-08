@@ -378,7 +378,8 @@ public partial class UICodeSpawner
 				    continue;
 			    }
 			    
-			    string widgetName = widget.name + strClassType.Split('.').ToList().Last();
+			    //string widgetName = widget.name + strClassType.Split('.').ToList().Last();
+			    string widgetName = widget.name + GetCurtailName(strClassType.ToString());
 			    strBuilder.AppendFormat("\t\t	{0}.m_{1} = null;\r\n", pointStr,widgetName);
 		    }
 		 
@@ -409,8 +410,9 @@ public partial class UICodeSpawner
 					GetSubUIBaseWindowCode(ref strBuilder, pair.Key,strPath,subUIClassPrefab.name);
 					continue;
 				}
-				string widgetName = widget.name + strClassType.Split('.').ToList().Last();
-				
+				//string widgetName = widget.name + strClassType.Split('.').ToList().Last();
+				string widgetName = widget.name + GetCurtailName(strClassType.ToString());
+				Debug.Log(widgetName);
 				
 				strBuilder.AppendFormat("		public {0} {1}\r\n", strInterfaceType, widgetName);
 				strBuilder.AppendLine("     	{");
@@ -475,7 +477,8 @@ public partial class UICodeSpawner
 				    continue;
 			    }
 
-			     string widgetName = widget.name + strClassType.Split('.').ToList().Last();
+			     //string widgetName = widget.name + strClassType.Split('.').ToList().Last();
+			     string widgetName = widget.name + GetCurtailName(strClassType.ToString());
 			    strBuilder.AppendFormat("\t\tprivate {0} m_{1} = null;\r\n", strClassType, widgetName);
 		    }
 		    
@@ -547,7 +550,6 @@ public partial class UICodeSpawner
 
     static void GetSubUIBaseWindowCode(ref StringBuilder strBuilder,string widget,string strPath, string subUIClassType)
     {
-	    
 	    strBuilder.AppendFormat("		public {0} {1}\r\n", subUIClassType, widget );
 	    strBuilder.AppendLine("     	{");
 	    strBuilder.AppendLine("     		get");
@@ -592,6 +594,31 @@ public partial class UICodeSpawner
         WidgetInterfaceList.Add("UIWarpContent");
         WidgetInterfaceList.Add("LoopVerticalScrollRect");
         WidgetInterfaceList.Add("LoopHorizontalScrollRect");
+    }
+
+    static string GetCurtailName(string name)
+    {
+	    switch (name)
+	    {
+		    case "UnityEngine.UI.Button" : return "Btn";
+		    case "UnityEngine.UI.Text" : return "Txt";
+		    case "UnityEngine.UI.Input" : return "Inp";
+		    case "UnityEngine.UI.InputField" : return "IField";
+		    case "UnityEngine.UI.Scrollbar" : return "SBar";
+		    case "UnityEngine.UI.ToggleGroup" : return "TGroup";
+		    case "UnityEngine.UI.Toggle" : return "Tog";
+		    case "UnityEngine.UI.Dropdown" : return "Down";
+		    case "UnityEngine.UI.Slider" : return "Sid";
+		    case "UnityEngine.UI.ScrollRect" : return "SRect";
+		    case "UnityEngine.UI.Image" : return "Img";
+		    case "UnityEngine.UI.RawImage" : return "RImg";
+		    case "UnityEngine.UI.Canvas" : return "Canvas";
+		    case "UnityEngine.UI.UIWarpContent" : return "UIConent";
+		    case "UnityEngine.UI.LoopVerticalScrollRect" : return "LoopV_SRect";
+		    case "UnityEngine.UI.LoopHorizontalScrollRect" : return "LoopH_Srect";
+	    }
+
+	    return name.Split('.').ToList().Last();
     }
 
     private static Dictionary<string, List<Component> > Path2WidgetCachedDict =null;

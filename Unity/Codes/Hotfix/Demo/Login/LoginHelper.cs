@@ -4,6 +4,7 @@ using UnityEngine;
 namespace ET
 {
     [FriendClass(typeof(AccountInfoComponent))]
+    [FriendClass(typeof(ServerInfosComponent))]
     public static class LoginHelper
     {
         public static async ETTask<int> Login(Scene zoneScene, string address, string account, string password)
@@ -89,7 +90,7 @@ namespace ET
                     AccountId = zoneScene.GetComponent<AccountInfoComponent>().AccountId,
                     Token = zoneScene.GetComponent<AccountInfoComponent>().Token,
                     Name = name,
-                    ServerId = 1,
+                    ServerId = zoneScene.GetComponent<ServerInfosComponent>().CurrentServerId,
                 });
             }
             catch (Exception e)
@@ -103,11 +104,53 @@ namespace ET
                 Log.Error(a2CCreateRole.Error.ToString());
                 return a2CCreateRole.Error;
             }
+
+            RoleInfo newRoleInfo = zoneScene.GetComponent<RoleInfosComponent>().AddChild<RoleInfo>();
+            newRoleInfo.FromMessage(a2CCreateRole.RoleInfoProto);
+            zoneScene.GetComponent<RoleInfosComponent>().AddRoleInfo(newRoleInfo);
             
             return ErrorCode.ERR_Success;
-            await ETTask.CompletedTask;
         }
-        
-        
+
+        public static async ETTask<int> GetRoles(Scene zoneScene)
+        {
+            A2C_GetRoles a2CGetRoles = null;
+
+            try
+            {
+                a2CGetRoles = (A2C_GetRoles) await zoneScene.GetComponent<SessionComponent>().Session.Call(new C2A_GetRoles()
+                {
+                    AccountId = zoneScene.GetComponent<AccountInfoComponent>().AccountId,
+                    Token = zoneScene.GetComponent<AccountInfoComponent>().Token,
+                    ServerId = zoneScene.GetComponent<ServerInfosComponent>().CurrentServerId
+                });
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                return ErrorCode.ERR_NetwordError;
+            }
+
+            if (a2CGetRoles.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error(a2CGetRoles.Error.ToString());
+                return a2CGetRoles.Error;
+            }
+
+            zoneScene.GetComponent<RoleInfosComponent>().ClearRoleInfo();
+            foreach (var roleInfoProto in a2CGetRoles.RoleInfoList)
+            {
+                RoleInfo newRoleInfo = zoneScene.GetComponent<RoleInfosComponent>().AddChild<RoleInfo>();
+                newRoleInfo.FromMessage(roleInfoProto);
+                zoneScene.GetComponent<RoleInfosComponent>().AddRoleInfo(newRoleInfo);
+            }
+
+            return ErrorCode.ERR_Success;
+        }
+
+        /*public static async ETTask<int> DelectRole()
+        {
+            
+        }*/
     }
 }

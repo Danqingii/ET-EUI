@@ -307,7 +307,7 @@ message RoleInfoProto
 	int32 ServerId = 7;
 }
 
-//IResponseType A2C_CreateRole
+//ResponseType A2C_CreateRole
 message C2A_CreateRole  // IRequest
 {
     int32 RpcId = 90;
@@ -323,5 +323,24 @@ message A2C_CreateRole // IResponse
 	int32 Error = 91;
 	string Message = 92;
 	RoleInfoProto RoleInfoProto = 1;
+}
+
+
+//ResponseType A2C_GetRoles
+message C2A_GetRoles // IRequest
+{
+	int32 RpcId = 90;
+	string Token = 1;
+	int64 AccountId = 2;
+	int32 ServerId = 3;
+}
+
+
+message A2C_GetRoles // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated RoleInfoProto RoleInfoList = 1;
 }
  

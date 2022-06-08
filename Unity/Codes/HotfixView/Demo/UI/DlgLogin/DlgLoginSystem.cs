@@ -42,9 +42,15 @@ namespace ET
 					return;
 				}
 
-				Log.Debug("登陆成功");
+				errorCode = await LoginHelper.GetServerInfos(self.ZoneScene());
+				if (errorCode != ErrorCode.ERR_Success)
+				{
+					Log.Error($"获取服务器信息错误码:{errorCode}");
+					return;
+				}
+				
 				self.DomainScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_Login);
-				self.DomainScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Lobby);
+				self.DomainScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_ServerInfo);
 			}
 			catch (Exception e)
 			{

@@ -19,7 +19,7 @@ namespace ET
             //重复请求创建角色
             if (session.GetComponent<SessionLockingComponent>() != null)
             {
-                response.Error = ErrorCode.ERR_RequestTooOften;
+                response.Error = ErrorCode.ERR_RequestRepeat;
                 reply();
                 return;
             }

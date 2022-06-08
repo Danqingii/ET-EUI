@@ -8,5 +8,8 @@
         WindowID_Login,     //登录界面
         WindowID_RedDot,   //红点测试界面
         WindowID_Helper,   //提示界面
+        
+        WindowID_ServerInfo, //服务器信息界面
+        WindowID_RoleInfo,   //角色信息页面
     }
 }
