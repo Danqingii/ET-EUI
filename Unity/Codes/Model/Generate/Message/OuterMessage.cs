@@ -695,4 +695,44 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(A2C_DeleteRole))]
+	[Message(OuterOpcode.C2A_DeleteRole)]
+	[ProtoContract]
+	public partial class C2A_DeleteRole: Object, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public string Token { get; set; }
+
+		[ProtoMember(2)]
+		public long AccountId { get; set; }
+
+		[ProtoMember(3)]
+		public long RoleInfoId { get; set; }
+
+		[ProtoMember(4)]
+		public int ServerId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.A2C_DeleteRole)]
+	[ProtoContract]
+	public partial class A2C_DeleteRole: Object, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public long DeleteRoleInfoId { get; set; }
+
+	}
+
 }

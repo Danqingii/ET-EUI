@@ -5,6 +5,7 @@ namespace ET
 {
     [FriendClass(typeof(AccountInfoComponent))]
     [FriendClass(typeof(ServerInfosComponent))]
+    [FriendClass(typeof(RoleInfosComponent))]
     public static class LoginHelper
     {
         public static async ETTask<int> Login(Scene zoneScene, string address, string account, string password)
@@ -148,9 +149,36 @@ namespace ET
             return ErrorCode.ERR_Success;
         }
 
-        /*public static async ETTask<int> DelectRole()
+        public static async ETTask<int> DelectRole(Scene zoneScene)
         {
+            A2C_DeleteRole a2CDeleteRole = null;
+
+            try
+            {
+                a2CDeleteRole = (A2C_DeleteRole) await zoneScene.GetComponent<SessionComponent>().Session.Call(new C2A_DeleteRole()
+                {
+                    AccountId = zoneScene.GetComponent<AccountInfoComponent>().AccountId,
+                    Token = zoneScene.GetComponent<AccountInfoComponent>().Token,
+                    RoleInfoId = zoneScene.GetComponent<RoleInfosComponent>().CurrentRoleId,
+                    ServerId = zoneScene.GetComponent<ServerInfosComponent>().CurrentServerId
+                });
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                return ErrorCode.ERR_NetwordError;
+            }
+
+            if (a2CDeleteRole.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error($"删除角色错误码{a2CDeleteRole.Error}");
+                return a2CDeleteRole.Error;
+            }
+
+            int index = zoneScene.GetComponent<RoleInfosComponent>().RoleInfos.FindIndex(d=> d.Id == a2CDeleteRole.DeleteRoleInfoId);
+            zoneScene.GetComponent<RoleInfosComponent>().RemoveRoleInfo(index);
             
-        }*/
+            return ErrorCode.ERR_Success;
+        }
     }
 }

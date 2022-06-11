@@ -497,7 +497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabSource:
-    prefabName: Item_ServerInfo
+    prefabName: Item_RoleInfo
     poolSize: 5
   totalCount: 0
   reverseDirection: 0

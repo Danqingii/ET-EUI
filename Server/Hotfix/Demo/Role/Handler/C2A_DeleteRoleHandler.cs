@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace ET
 {
-    [FriendClass(typeof(RoleInfo))]
     [MessageHandler]
-    public class C2A_GetRolesHandler : AMRpcHandler<C2A_GetRoles,A2C_GetRoles>
+    [FriendClass(typeof(RoleInfo))]
+    public class C2A_DeleteRoleHandler : AMRpcHandler<C2A_DeleteRole,A2C_DeleteRole>
     {
-        protected override async ETTask Run(Session session, C2A_GetRoles request, A2C_GetRoles response, Action reply)
+        protected override async ETTask Run(Session session, C2A_DeleteRole request, A2C_DeleteRole response, Action reply)
         {
             if (session.DomainScene().SceneType != SceneType.Account)
             {
@@ -34,28 +34,31 @@ namespace ET
                 session?.Disconnect().Coroutine();
                 return;
             }
-
+            
             using (session.AddComponent<SessionLockingComponent>())
             {
                 using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.CreateRole, request.AccountId.GetHashCode()))
                 {
-                   List<RoleInfo> roleInfos = await DBManagerComponent.Instance.GetZoneDB(session.DomainZone())
-                             .Query<RoleInfo>( d => d.AccountId == request.AccountId && d.ServerId == request.ServerId && d.State != (int)RoleInfoState.Freeze);
+                    List<RoleInfo> roleInfos = await DBManagerComponent.Instance.GetZoneDB(session.DomainZone())
+                            .Query<RoleInfo>(d=> d.AccountId == request.AccountId && d.ServerId == request.ServerId && d.Id == request.RoleInfoId);
 
-                   if (roleInfos == null || roleInfos.Count == 0)
-                   {
-                       reply();
-                       return;
-                   }
+                    //需要删除的角色未查询成功
+                    if (roleInfos == null || roleInfos.Count <= 0)
+                    {
+                        response.Error = ErrorCode.ERR_RoleNoExist;
+                        reply();
+                        return;
+                    }
 
-                   foreach (var roleInfo in roleInfos)
-                   {
-                       response.RoleInfoList.Add(roleInfo.ToMessage());
-                       roleInfo?.Dispose();
-                   }
-                   roleInfos.Clear();
-
-                   reply();
+                    RoleInfo roleInfo = roleInfos[0];
+                    session.AddChild(roleInfo);
+                    
+                    roleInfo.State = (int)RoleInfoState.Freeze;
+                    await DBManagerComponent.Instance.GetZoneDB(request.ServerId).Save(roleInfo);
+                    response.DeleteRoleInfoId = roleInfo.Id;
+                    roleInfo?.Dispose();
+                    
+                    reply();
                 }
             }
         }

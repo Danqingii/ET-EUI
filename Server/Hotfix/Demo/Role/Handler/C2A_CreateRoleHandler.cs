@@ -42,7 +42,7 @@ namespace ET
                 return;
             }
 
-            if (request.Name.Length < 3 || request.Name.Length > 8)
+            if (request.Name.Length < 2 || request.Name.Length > 8)
             {
                 response.Error = ErrorCode.ERR_RoleNameIsNorm;
                 reply();
@@ -58,8 +58,9 @@ namespace ET
                     List<RoleInfo> roleInfos = await DBManagerComponent.Instance.GetZoneDB(session.DomainZone())
                             .Query<RoleInfo>(d => d.Name == request.Name && d.ServerId == request.ServerId);
 
+                    
                     //数据库已经存在该角色了 无法创建
-                    if (roleInfos !=  null || roleInfos.Count > 0)
+                    if (roleInfos !=  null && roleInfos.Count > 0)
                     {
                         response.Error = ErrorCode.ERR_RoleExist;
                         reply();

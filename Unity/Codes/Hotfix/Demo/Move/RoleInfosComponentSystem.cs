@@ -25,9 +25,9 @@
             self.RoleInfos.Add(roleInfo);
         }
         
-        public static void RemoveRoleInfo(this RoleInfosComponent self,RoleInfo roleInfo)
+        public static void RemoveRoleInfo(this RoleInfosComponent self,int index)
         {
-            self.RoleInfos.Remove(roleInfo);
+            self.RoleInfos.RemoveAt(index);
         }
 
         public static void ClearRoleInfo(this RoleInfosComponent self)
