@@ -23,9 +23,10 @@ namespace ET
         public const int ERR_RequestRepeat = 200008;           //重复请求
         public const int ERR_TokenError = 200009;              //令牌请求错误
 
-        public const int ERR_RoleNameIsNull = 200010;    //角色名字为空
-        public const int ERR_RoleNameIsNorm = 200011;    //角色名字长度不规范
-        public const int ERR_RoleExist = 200012;         //角色已经存在了
-        public const int ERR_RoleNoExist = 200013;         //角色不存在了
+        public const int ERR_RoleNameIsNull = 200010;        //角色名字为空
+        public const int ERR_RoleNameIsNorm = 200011;        //角色名字长度不规范
+        public const int ERR_RoleExist = 200012;             //角色已经存在了
+        public const int ERR_RoleNoExist = 200013;           //角色不存在了
+        public const int ERR_RequestSceneTypeError = 200014; //请求Scene错误
     }
 }

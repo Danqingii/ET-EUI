@@ -54,7 +54,7 @@ namespace ET
                     session.AddChild(roleInfo);
                     
                     roleInfo.State = (int)RoleInfoState.Freeze;
-                    await DBManagerComponent.Instance.GetZoneDB(request.ServerId).Save(roleInfo);
+                    await DBManagerComponent.Instance.GetZoneDB(session.DomainZone()).Save(roleInfo);
                     response.DeleteRoleInfoId = roleInfo.Id;
                     roleInfo?.Dispose();
                     

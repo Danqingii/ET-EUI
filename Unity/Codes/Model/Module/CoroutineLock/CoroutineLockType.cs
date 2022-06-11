@@ -16,6 +16,7 @@ namespace ET
         public const int GateLoginLock = 10;            //gate网关服登陆
 
         public const int CreateRole = 11;               //创建角色
+        public const int LoginRealm = 12;               //登陆Realm
 
         public const int Max = 100; // 这个必须最大
     }

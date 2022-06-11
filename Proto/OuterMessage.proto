@@ -362,4 +362,65 @@ message A2C_DeleteRole // IResponse
 	string Message = 92;
 	int64 DeleteRoleInfoId = 1;
 }
- 
+
+
+//客户端请求Realm网关服务器令牌和地址
+//ResponseType A2C_GetRealmKey
+message C2A_GetRealmKey // IRequest
+{
+    int32 RpcId = 90;
+	string Token = 1;
+	int64 AccountId = 2;
+	int32 ServerId = 3;
+}
+
+message A2C_GetRealmKey // IResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string RealmKey = 1;
+	string RealmAddress = 2;
+}
+
+
+//客户端尝试连接Realm 获取Gate地址
+//ResopnseType R2C_LoginRealm
+message C2R_LoginRealm // IRequest
+{
+    int32 RpcId = 90;
+	int64 AccountId = 1;
+    string RealmKey = 2;
+}
+
+
+message R2C_LoginRealm  // IResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string GateKey = 1;
+	string GateAddress = 2;
+}
+
+
+
+//客户端尝试连接Realm 获取Gate地址
+//ResopnseType G2C_LoginGameGate
+message C2G_LoginGameGate // IRequest
+{
+    int32 RpcId = 90;
+	string GateKey = 1;
+	int64 AccountId = 2;
+    string RoleId = 3;
+}
+
+
+message G2C_LoginGameGate  // IResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string GateKey = 1;
+	string GateAddress = 2;
+}

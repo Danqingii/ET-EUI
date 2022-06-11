@@ -5,7 +5,9 @@
     public class AccountInfoComponent : Entity,IAwake,IDestroy
     {
         public long AccountId;
-
         public string Token;
+
+        public string RealmKey;
+        public string RealmAddress;
     }
 }

@@ -86,7 +86,33 @@ namespace ET
 		
 		public static async ETTask OnEnterGameHandler(this DlgRoleInfo self)
 		{
-			await ETTask.CompletedTask;
+			if (self.ZoneScene().GetComponent<RoleInfosComponent>().CurrentRoleId <= 0)
+			{
+				Log.Error("请先选择一个角色");
+				return;
+			}
+
+			try
+			{
+				int errorCode = await LoginHelper.GetRelamekey(self.ZoneScene());
+				if (errorCode != ErrorCode.ERR_Success)
+				{
+					Log.Error(errorCode.ToString());
+					return;
+				}
+
+				errorCode = await LoginHelper.EnterGame(self.ZoneScene());
+				if (errorCode != ErrorCode.ERR_Success)
+				{
+					Log.Error(errorCode.ToString());
+					return;
+				}
+
+			}
+			catch (Exception e)
+			{
+				Log.Error(e.ToString());
+			}
 		}
 
 		public static void OnLeepListRoleRefresClick(this DlgRoleInfo self,Transform trans,int index)
