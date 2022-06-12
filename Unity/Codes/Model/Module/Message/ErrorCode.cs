@@ -28,5 +28,13 @@ namespace ET
         public const int ERR_RoleExist = 200012;             //角色已经存在了
         public const int ERR_RoleNoExist = 200013;           //角色不存在了
         public const int ERR_RequestSceneTypeError = 200014; //请求Scene错误
+        public const int ERR_OtherAccountLogin = 200015;     //其他账号登陆
+        public const int ERR_SessionPlayerError = 200016;    //SessionPlayer错误
+        public const int ERR_NonePlayer = 200017;            //Player为空
+        public const int ERR_SessionStateError = 200018;     //Session状态错误
+        
+        public const int ERR_EnterGameError = 200019;        //进入Map传送角色错误
+        public const int ERR_ReEnterGameError = 200020;      //进入Game服错误
+        public const int ERR_ReEnterGameError2 = 200021;     //进入Game服错误
     }
 }

@@ -192,7 +192,7 @@ message G2L_DisconnectGateUnit // IActorResponse
 
 
 //账号服请求Realm服 获取连接Realm服的令牌
-//ResopnseType R2A_GetRealmKey
+//ResponseType R2A_GetRealmKey
 message A2R_GetRealmKey // IActorRequest
 {
     int32 RpcId = 90;
@@ -210,7 +210,7 @@ message R2A_GetRealmKey  // IActorResponse
 
 
 //Realm服请求Gate服 获取连接Gate服的令牌
-//ResopnseType R2A_GetRealmKey
+//ResponseType G2R_GetLoginGateKey
 message R2G_GetLoginGateKey // IActorRequest
 {
     int32 RpcId = 90;
@@ -223,5 +223,73 @@ message G2R_GetLoginGateKey  // IActorResponse
 	int32 Error = 91;
 	string Message = 92;
 	string GateKey = 1;
+}
+
+
+
+//Gate服请求登陆中心服保存该玩家登陆信息
+//ResponseType L2G_AddLoginRecord
+message G2L_AddLoginRecord // IActorRequest
+{
+    int32 RpcId = 90;
+	int64 AccountId = 1;
+    int32 ServerId = 2;
+}
+
+
+message L2G_AddLoginRecord  // IActorResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+
+//gate服请求map服进入是否正常
+//ResponseType M2G_RequestEnterGameState
+message G2M_RequestEnterGameState // IActorLocationRequest
+{
+    int32 RpcId = 90;
+}
+
+message M2G_RequestEnterGameState  // IActorLocationResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+//gate服通知map服玩家退出游戏
+//ResponseType M2G_RequestExitGame
+message G2M_RequestExitGame // IActorLocationRequest
+{
+    int32 RpcId = 90;
+}
+
+message M2G_RequestExitGame // IActorLocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+
+//gate服通知登陆中心服移除玩家登陆信息
+//ResponseType L2G_RemoveLoginRecord
+message G2L_RemoveLoginRecord // IActorRequest
+{
+    int32 RpcId = 90;
+	int64 AccountId = 1;
+	int32 ServerId = 2;
+}
+
+message L2G_RemoveLoginRecord // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
 }
 

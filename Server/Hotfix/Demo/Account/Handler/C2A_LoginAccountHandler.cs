@@ -101,8 +101,8 @@ namespace ET
                     }
 
                     //保存当前玩家的账号在登陆中心服
-                    StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "LoginCentre");
-                    long loginCentreInstacneId = startSceneConfig.InstanceId;
+                    StartSceneConfig loginCenterConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "LoginCentre");
+                    long loginCentreInstacneId = loginCenterConfig.InstanceId;
                     var l2ALoginAccountRecord = (L2A_LoginAccountRecord) await MessageHelper.CallActor(loginCentreInstacneId, new A2L_LoginAccountRecord() {AccountId = account.Id});
                     if (l2ALoginAccountRecord.Error != ErrorCode.ERR_Success)
                     {

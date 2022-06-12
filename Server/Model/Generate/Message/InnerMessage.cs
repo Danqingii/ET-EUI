@@ -384,7 +384,7 @@ namespace ET
 	}
 
 //账号服请求Realm服 获取连接Realm服的令牌
-//ResopnseType R2A_GetRealmKey
+	[ResponseType(nameof(R2A_GetRealmKey))]
 	[Message(InnerOpcode.A2R_GetRealmKey)]
 	[ProtoContract]
 	public partial class A2R_GetRealmKey: Object, IActorRequest
@@ -416,7 +416,7 @@ namespace ET
 	}
 
 //Realm服请求Gate服 获取连接Gate服的令牌
-//ResopnseType R2A_GetRealmKey
+	[ResponseType(nameof(G2R_GetLoginGateKey))]
 	[Message(InnerOpcode.R2G_GetLoginGateKey)]
 	[ProtoContract]
 	public partial class R2G_GetLoginGateKey: Object, IActorRequest
@@ -444,6 +444,122 @@ namespace ET
 
 		[ProtoMember(1)]
 		public string GateKey { get; set; }
+
+	}
+
+//Gate服请求登陆中心服保存该玩家登陆信息
+	[ResponseType(nameof(L2G_AddLoginRecord))]
+	[Message(InnerOpcode.G2L_AddLoginRecord)]
+	[ProtoContract]
+	public partial class G2L_AddLoginRecord: Object, IActorRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long AccountId { get; set; }
+
+		[ProtoMember(2)]
+		public int ServerId { get; set; }
+
+	}
+
+	[Message(InnerOpcode.L2G_AddLoginRecord)]
+	[ProtoContract]
+	public partial class L2G_AddLoginRecord: Object, IActorResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+//gate服请求map服进入是否正常
+	[ResponseType(nameof(M2G_RequestEnterGameState))]
+	[Message(InnerOpcode.G2M_RequestEnterGameState)]
+	[ProtoContract]
+	public partial class G2M_RequestEnterGameState: Object, IActorLocationRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(InnerOpcode.M2G_RequestEnterGameState)]
+	[ProtoContract]
+	public partial class M2G_RequestEnterGameState: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+//gate服通知map服玩家退出游戏
+	[ResponseType(nameof(M2G_RequestExitGame))]
+	[Message(InnerOpcode.G2M_RequestExitGame)]
+	[ProtoContract]
+	public partial class G2M_RequestExitGame: Object, IActorLocationRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(InnerOpcode.M2G_RequestExitGame)]
+	[ProtoContract]
+	public partial class M2G_RequestExitGame: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+//gate服通知登陆中心服移除玩家登陆信息
+	[ResponseType(nameof(L2G_RemoveLoginRecord))]
+	[Message(InnerOpcode.G2L_RemoveLoginRecord)]
+	[ProtoContract]
+	public partial class G2L_RemoveLoginRecord: Object, IActorRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long AccountId { get; set; }
+
+		[ProtoMember(2)]
+		public int ServerId { get; set; }
+
+	}
+
+	[Message(InnerOpcode.L2G_RemoveLoginRecord)]
+	[ProtoContract]
+	public partial class L2G_RemoveLoginRecord: Object, IActorResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
 
 	}
 

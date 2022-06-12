@@ -24,7 +24,10 @@ namespace ET
                 //让gate网关服务器发送下线消息
                 int zone = scene.GetComponent<LoginInfoRecordComponent>().GetZone(accountId);
                 StartSceneConfig gateConfig = RealmGateAddressHelper.GetGate(zone,accountId);
-                var g2lDisconnectGateUnit = (G2L_DisconnectGateUnit) await MessageHelper.CallActor(gateConfig.InstanceId,new L2G_DisconnectGateUnit() { AccountId = accountId });
+                var g2lDisconnectGateUnit = (G2L_DisconnectGateUnit) await MessageHelper.CallActor(gateConfig.InstanceId,new L2G_DisconnectGateUnit()
+                {
+                    AccountId = accountId
+                });
 
                 response.Error = g2lDisconnectGateUnit.Error;
                 reply();

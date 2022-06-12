@@ -37,8 +37,10 @@ namespace ET
             {
                 using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.LoginAccount,request.AccountId.GetHashCode()))
                 {
+                    //取模Realm
                     StartSceneConfig realmSceneConfig =  RealmGateAddressHelper.GetRealm(request.ServerId);
 
+                    //通知Realm分配一个进入Realm的令牌
                     R2A_GetRealmKey r2AGetRealmKey = (R2A_GetRealmKey) await MessageHelper.CallActor(realmSceneConfig.InstanceId, new A2R_GetRealmKey() {AccountId = request.AccountId});
 
                     //如果请求Realm不通过 为啥要断开session
@@ -54,6 +56,7 @@ namespace ET
                     response.RealmAddress = realmSceneConfig.OuterIPPort.ToString();
                     reply();
                     
+                    //因为当前是Realm所有可以直接断开
                     session?.Disconnect().Coroutine();
                 }
             }

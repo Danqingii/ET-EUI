@@ -777,7 +777,7 @@ namespace ET
 	}
 
 //客户端尝试连接Realm 获取Gate地址
-//ResopnseType R2C_LoginRealm
+	[ResponseType(nameof(R2C_LoginRealm))]
 	[Message(OuterOpcode.C2R_LoginRealm)]
 	[ProtoContract]
 	public partial class C2R_LoginRealm: Object, IRequest
@@ -814,8 +814,8 @@ namespace ET
 
 	}
 
-//客户端尝试连接Realm 获取Gate地址
-//ResopnseType G2C_LoginGameGate
+//客户端尝试登陆Gate
+	[ResponseType(nameof(G2C_LoginGameGate))]
 	[Message(OuterOpcode.C2G_LoginGameGate)]
 	[ProtoContract]
 	public partial class C2G_LoginGameGate: Object, IRequest
@@ -830,7 +830,7 @@ namespace ET
 		public long AccountId { get; set; }
 
 		[ProtoMember(3)]
-		public string RoleId { get; set; }
+		public long RoleId { get; set; }
 
 	}
 
@@ -848,10 +848,36 @@ namespace ET
 		public string Message { get; set; }
 
 		[ProtoMember(1)]
-		public string GateKey { get; set; }
+		public long PlayerId { get; set; }
 
-		[ProtoMember(2)]
-		public string GateAddress { get; set; }
+	}
+
+//客户端进入游戏逻辑服
+	[ResponseType(nameof(G2C_EnterGame))]
+	[Message(OuterOpcode.C2G_EnterGame)]
+	[ProtoContract]
+	public partial class C2G_EnterGame: Object, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.G2C_EnterGame)]
+	[ProtoContract]
+	public partial class G2C_EnterGame: Object, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public long UnitId { get; set; }
 
 	}
 
