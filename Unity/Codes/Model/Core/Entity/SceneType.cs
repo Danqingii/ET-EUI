@@ -12,6 +12,8 @@
 		Account = 7,       //账号服
 		LoginCentre = 8,   //登陆中心服
 
+		UnitCache = 9,     //游戏缓存服
+		
 		// 客户端Model层
 		Client = 30,
 		Zone = 31,

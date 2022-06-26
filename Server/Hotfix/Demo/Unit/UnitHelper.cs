@@ -6,6 +6,7 @@ namespace ET
     [FriendClass(typeof(Unit))]
     [FriendClass(typeof(MoveComponent))]
     [FriendClass(typeof(NumericComponent))]
+    [FriendClass(typeof(GateMapComponent))]
     public static class UnitHelper
     {
         public static UnitInfo CreateUnitInfo(Unit unit)
@@ -67,6 +68,28 @@ namespace ET
             M2C_RemoveUnits removeUnits = new M2C_RemoveUnits();
             removeUnits.Units.Add(sendUnit.Id);
             MessageHelper.SendToClient(unit, removeUnits);
+        }
+
+
+        public static async ETTask<(bool, Unit)> LoadUnit(Player player)
+        {
+            GateMapComponent gateMapComponent = player.AddComponent<GateMapComponent>();
+            gateMapComponent.Scene = await SceneFactory.Create(gateMapComponent, "GateMap", SceneType.Map);
+
+            Unit unit = await UnitCacheHelper.GetUnitCache(gateMapComponent.Scene,player.UnitId);
+
+            bool isNewUnit = unit == null;
+            if (isNewUnit)
+            {
+                unit = UnitFactory.Create(gateMapComponent.Scene, player.UnitId, UnitType.Player);
+                UnitCacheHelper.AddOrUpdateUnitAllCache(unit);
+            }
+            return (isNewUnit,unit);
+        }
+
+        public static async ETTask InitUnit(Unit unit,bool isNewUnit)
+        {
+            await ETTask.CompletedTask;
         }
     }
 }

@@ -9,8 +9,7 @@ namespace ET
 		{
 			public override void Destroy(SessionPlayerComponent self)
 			{
-				//正常下线 非异常情况下线
-				//也就是如果不是在被别人顶号操作的情况下  才可以正常下线的
+				//如果当前是有玩家重复登陆 我们就不需要销毁gate服中的player映射 让后登陆玩家接管该player
 				if (!self.IsLoginAgain && self.PlayerInstanceId != 0)
 				{
 					// 发送断线消息

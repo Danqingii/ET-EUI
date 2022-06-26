@@ -1,6 +1,7 @@
 ﻿namespace ET
 {
     [EnableMethod]
+    [ChildType()]
     public sealed class Scene: Entity
     {
         public int Zone

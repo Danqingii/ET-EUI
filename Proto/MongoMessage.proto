@@ -19,3 +19,16 @@ message M2M_UnitTransferRequest // IActorRequest
 	Unit Unit = 2;
 	repeated Entity Entitys = 3;
 }
+
+
+
+//缓存服返回其他服 实体信息
+message UnitCache2Other_GetUnit // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	repeated Entity EntityList = 1;        //实体组件
+	repeated string ComponentNameList = 2; //实体组件名字
+}

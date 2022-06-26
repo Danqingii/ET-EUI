@@ -108,6 +108,8 @@ namespace ET
 					return;
 				}
 
+				self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Mian);
+				self.ZoneScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_RoleInfo);
 			}
 			catch (Exception e)
 			{

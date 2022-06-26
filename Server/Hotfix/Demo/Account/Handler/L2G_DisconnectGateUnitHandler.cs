@@ -3,7 +3,7 @@
 namespace ET
 {
     /// <summary>
-    /// 断开跟玩家通讯的Gate网关服
+    /// 玩家网关下线
     /// </summary>
     [ActorMessageHandler]
     [FriendClass(typeof(Player))]
@@ -27,7 +27,7 @@ namespace ET
                 
                 //存在有player映射
                 scene.GetComponent<PlayerComponent>().Remove(accountId);
-                Session gateSession = Game.EventSystem.Get(player.SessionInstanceId) as  Session;
+                Session gateSession = Game.EventSystem.Get(player.SessionInstanceId) as Session;
                 if (gateSession != null && !gateSession.IsDisposed)
                 {
                     //!记录一下 现在是在顶号操作 防止下线有两种结果 

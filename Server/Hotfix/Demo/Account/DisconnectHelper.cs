@@ -28,7 +28,7 @@ namespace ET
                     return;
                 }
 
-                //非异常情况下线
+                //非异常情况下线 也就是正常点击退出游戏
                 if (!isException)
                 {
                     switch (player.PlayerState)

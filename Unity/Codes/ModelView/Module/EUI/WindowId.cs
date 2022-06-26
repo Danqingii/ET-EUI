@@ -11,5 +11,7 @@
         
         WindowID_ServerInfo, //服务器信息界面
         WindowID_RoleInfo,   //角色信息页面
+        
+        WindowID_Mian,
     }
 }

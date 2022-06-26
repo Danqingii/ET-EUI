@@ -19,7 +19,9 @@ namespace ET
         public StartSceneConfig LoginCenterConfig;
         
         public List<StartSceneConfig> Robots = new List<StartSceneConfig>();
-        
+
+        public Dictionary<int, StartSceneConfig> UnitCaches = new Dictionary<int, StartSceneConfig>();
+
         public List<StartSceneConfig> GetByProcess(int process)
         {
             return this.ProcessScenes[process];
@@ -28,6 +30,11 @@ namespace ET
         public StartSceneConfig GetBySceneName(int zone, string name)
         {
             return this.ZoneScenesByName[zone][name];
+        }
+
+        public StartSceneConfig GetUnitCacheConfig(long unitId)
+        {
+            return UnitCaches[UnitIdStruct.GetUnitZone(unitId)];
         }
         
         public override void AfterEndInit()
@@ -58,6 +65,9 @@ namespace ET
                         break;
                     case SceneType.LoginCentre:
                         LoginCenterConfig = startSceneConfig;
+                        break;
+                    case SceneType.UnitCache:
+                        UnitCaches.Add(startSceneConfig.Zone,startSceneConfig);
                         break;
                 }
             }
